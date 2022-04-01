@@ -5,6 +5,7 @@ import io.quarkus.redis.client.RedisClient;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
+import javax.ws.rs.core.Response;
 import java.util.Arrays;
 
 @Singleton
@@ -12,17 +13,13 @@ public class TaskService {
     @Inject
     RedisClient redisClient;
 
-    public Task addTask(Task task) {
+    public Response addTask(Task task) {
         if(task.checkTitle()){
             redisClient.set(Arrays.asList(task.getTitle(), task.getDescription()));
-            return task;
+            return Response.ok(task).build();
         }else{
             throw new IllegalArgumentException("Error title");
         }
-
     }
 
-    public String getTask(Task task) {
-        return redisClient.get(task.getTitle()).toString();
-    }
 }

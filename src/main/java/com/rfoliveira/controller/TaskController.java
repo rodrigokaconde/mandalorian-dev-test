@@ -6,6 +6,7 @@ import com.rfoliveira.service.TaskService;
 import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 @Path("")
 public class TaskController {
@@ -15,15 +16,8 @@ public class TaskController {
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/add/task")
-    public Task addTask(Task task){
+    public Response addTask(Task task){
         return taskService.addTask(task);
-    }
-
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    @Path("/get/task")
-    public String getTask(Task task){
-        return taskService.getTask(task);
     }
 
 }
